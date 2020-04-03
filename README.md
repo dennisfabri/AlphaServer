@@ -1,2 +1,3 @@
 # AlphaServer
-Read data from Omage timekeeping devices
+
+Read data from Omega timekeeping devices for swimming events
