@@ -33,23 +33,23 @@ public class JCollector extends JFrame {
     /**
      * 
      */
-    private static final long     serialVersionUID = -5714209912532213413L;
-    private JLabel                label1           = new JLabel();
-    private JPanel                port1;
-    private JLabel                time1            = new JLabel();
+    private static final long serialVersionUID = -5714209912532213413L;
+    private JLabel label1 = new JLabel();
+    private JPanel port1;
+    private JLabel time1 = new JLabel();
     private CollectorDataListener dl1;
-    private JLabel                counter1         = new JLabel();
+    private JLabel counter1 = new JLabel();
 
-    private AlphaHttpServer       http;
-    MessageReader                 mr;
+    private AlphaHttpServer http;
+    MessageReader mr;
 
-    private String                name;
-    JButton                       connect;
-    JComboBox<String>             mode;
+    private String name;
+    JButton connect;
+    JComboBox<String> mode;
 
-    JTextArea                     log              = new JTextArea();
+    JTextArea log = new JTextArea();
 
-    StringBuffer                  sb               = new StringBuffer();
+    StringBuffer sb = new StringBuffer();
 
     private JCollector() {
         super("Alpha-Server");
@@ -142,8 +142,7 @@ public class JCollector extends JFrame {
         port1.setBorder(BorderUtils.createLabeledBorder("No Connection"));
 
         // TODO: Implement better version
-        name = FileChooserUtils.chooseFile("Datei wählen", "Öffnen",
-                new SimpleFileFilter("Elektronische Zeitnahme", "ez"), null);
+        name = FileChooserUtils.saveFile(null, "Datei wählen", new SimpleFileFilter("Elektronische Zeitnahme", "ez"));
 
         mr = new MessageReader();
         Heat[] heats = readHeats();
@@ -199,14 +198,14 @@ public class JCollector extends JFrame {
 
     private final class CollectorDataListener implements DataListener {
 
-        private final PortReader  in;
-        private final JLabel       text;
+        private final PortReader in;
+        private final JLabel text;
         // private final FileOutputStream fos;
-        private final Collector    coll;
-        private final JLabel       time;
-        private long               last  = 0;
-        private final JLabel       counter;
-        private int                count = 0;
+        private final Collector coll;
+        private final JLabel time;
+        private long last = 0;
+        private final JLabel counter;
+        private int count = 0;
         private final OutputStream os;
 
         public CollectorDataListener(PortReader p, JLabel i, JLabel time, JLabel c, OutputStream o, String name)
