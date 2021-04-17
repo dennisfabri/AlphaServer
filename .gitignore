@@ -26,3 +26,7 @@ hs_err_pid*
 /.settings/
 .classpath
 .project
+
+/data/*.serial
+/*.ez
+/*.ez.xml

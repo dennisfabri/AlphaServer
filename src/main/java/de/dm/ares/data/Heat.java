@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
 import de.df.jutils.data.EnumerationIterable;
 
 public class Heat implements Serializable {
@@ -11,8 +13,11 @@ public class Heat implements Serializable {
 	private static final long serialVersionUID = 4925782095479969005L;
 	
 	private final Hashtable<Integer, Lane> lanes;
+    @XStreamAsAttribute
     private final int                      event;
+    @XStreamAsAttribute
     private final int                      heat;
+    @XStreamAsAttribute
     private final String                   id;
 
     public Heat(String id, int event, int heatname) {

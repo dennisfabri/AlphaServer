@@ -13,6 +13,11 @@ public class XStreamUtil {
         stream.aliasType("AlphaServer.Heat", de.dm.ares.data.Heat.class);
         stream.aliasType("AlphaServer.Lane", de.dm.ares.data.Lane.class);
         stream.aliasType("AlphaServer.LaneStatus", de.dm.ares.data.LaneStatus.class);
+        
+        stream.useAttributeFor(de.dm.ares.data.Lane.class,"laneindex");
+        stream.useAttributeFor(de.dm.ares.data.Heat.class, "event");
+        stream.useAttributeFor(de.dm.ares.data.Heat.class, "heat");
+        stream.useAttributeFor(de.dm.ares.data.Heat.class, "id");        
     }
     
     // Source

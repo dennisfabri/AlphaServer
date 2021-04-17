@@ -3,6 +3,8 @@ package de.dm.ares.data;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
 import de.df.jutils.util.StringTools;
 
 public class Lane implements Serializable {
@@ -12,6 +14,7 @@ public class Lane implements Serializable {
 	 */
 	private static final long serialVersionUID = -7389645818914972121L;
 
+    @XStreamAsAttribute
 	private final int    laneindex;
 
     private long[]       times = new long[0];
