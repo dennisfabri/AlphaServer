@@ -7,24 +7,21 @@ import de.dm.ares.data.event.HeatListener;
 
 public class TimeStorage {
 
-    private final LinkedList<Heat>   heats;
-    private Heat                     current;
-    private UniqueKeyProvider        keys;
-
+    private final LinkedList<Heat> heats;
+    private Heat current;
     private transient LinkedList<HeatListener> listeners = new LinkedList<HeatListener>();
 
     public TimeStorage() {
         heats = new LinkedList<Heat>();
         current = null;
-        keys = new UniqueKeyProvider();
     }
-    
+
     public void setHeats(Heat[] newheats) {
         for (Heat h : newheats) {
             heats.addLast(h);
         }
     }
-    
+
     private void fireNewHeatEvent(Heat heat) {
         try {
             for (HeatListener l : listeners) {
@@ -34,7 +31,7 @@ public class TimeStorage {
             re.printStackTrace();
         }
     }
-    
+
     public Heat[] getHeats() {
         return heats.toArray(new Heat[heats.size()]);
     }
@@ -55,7 +52,7 @@ public class TimeStorage {
             fireFinishedHeatEvent(current);
         }
         synchronized (heats) {
-            current = new Heat(keys.getNextKey(), event, heat);
+            current = new Heat("" + (1 + heats.size()), event, heat);
             heats.addLast(current);
             fireNewHeatEvent(current);
         }
@@ -64,16 +61,15 @@ public class TimeStorage {
     public void addHeatListener(HeatListener hl) {
         listeners.addLast(hl);
     }
-    
+
     public void moveListeners(TimeStorage ts) {
         ts.listeners.addAll(listeners);
         listeners.clear();
     }
 
-    public void store(Index index, TimeType type, int event, int heat,
-            int lane, long time, LaneStatus status) {
-        if ((current == null) || (current.getHeat() != heat)
-                || (current.getEvent() != event) || (type == TimeType.Start)) {
+    public void store(Index index, TimeType type, int event, int heat, int lane, long time, LaneStatus status) {
+        if ((current == null) || (current.getHeat() != heat) || (current.getEvent() != event)
+                || (type == TimeType.Start)) {
             newHeat(event, heat);
         }
         if (time <= 0) {
@@ -112,10 +108,9 @@ public class TimeStorage {
         }
         return sb.toString();
     }
-    
+
     public void clear() {
         heats.clear();
         current = null;
-        keys = new UniqueKeyProvider();
     }
 }
