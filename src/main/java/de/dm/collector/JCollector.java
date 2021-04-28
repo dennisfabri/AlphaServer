@@ -1,30 +1,49 @@
 package de.dm.collector;
 
 import java.awt.Dimension;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.lisasp.swing.filechooser.FileChooserUtils;
 import org.lisasp.swing.filechooser.filefilter.SimpleFileFilter;
+import org.lisasp.swing.filechooser.jfx.FileChooserJFX;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.thoughtworks.xstream.XStream;
 
 import de.df.jutils.gui.border.BorderUtils;
-import de.df.jutils.gui.util.*;
+import de.df.jutils.gui.util.DesignInit;
+import de.df.jutils.gui.util.WindowUtils;
 import de.df.jutils.util.StringTools;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.event.HeatListener;
 import de.dm.ares.file.FileReader;
-import de.dm.comm.*;
+import de.dm.comm.CommunicationMode;
+import de.dm.comm.DataListener;
+import de.dm.comm.NRJavaSerialPortReader;
+import de.dm.comm.PortReader;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 
@@ -192,6 +211,7 @@ public class JCollector extends JFrame {
     public static void main(String[] args)
             throws TooManyListenersException, IOException, PortInUseException, UnsupportedCommOperationException {
         DesignInit.init();
+        FileChooserUtils.initialize(new FileChooserJFX());
         JCollector collector = new JCollector();
         collector.start();
     }
