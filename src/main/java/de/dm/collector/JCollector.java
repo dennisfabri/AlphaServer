@@ -68,7 +68,7 @@ public class JCollector extends JFrame {
 
     JTextArea log = new JTextArea();
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
 
     private JCollector() {
         super("Alpha-Server");

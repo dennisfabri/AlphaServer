@@ -6,8 +6,6 @@ import java.util.Hashtable;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jutils.data.HashtableUtils;
-
 public class Heat implements Serializable {
 
 	private static final long serialVersionUID = 4925782095479969005L;
@@ -21,7 +19,7 @@ public class Heat implements Serializable {
     private final String                   id;
 
     public Heat(String id, int event, int heatname) {
-        lanes = new Hashtable<Integer, Lane>();
+        lanes = new Hashtable<>();
         this.event = event;
         this.heat = heatname;
         this.id = id;
@@ -61,14 +59,7 @@ public class Heat implements Serializable {
     }
 
     public int getMaxLane() {
-        int max = -1;
-
-        for (Integer lane : HashtableUtils.getKeyIterable(lanes)) {
-            if (max < lane) {
-                max = lane;
-            }
-        }
-        return max;
+        return lanes.keySet().stream().sorted((l1, l2) -> l2 - l1).findFirst().orElse(-1);
     }
 
     public long[][] getTimes() {
@@ -108,7 +99,7 @@ public class Heat implements Serializable {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(id);
         sb.append(": ");
         sb.append(event);

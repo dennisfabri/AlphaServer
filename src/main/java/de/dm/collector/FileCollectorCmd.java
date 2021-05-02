@@ -23,7 +23,7 @@ public class FileCollectorCmd {
 
     private String name;
 
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
 
     private FileCollectorCmd() {
     }

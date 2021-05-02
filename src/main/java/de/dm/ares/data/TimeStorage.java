@@ -100,7 +100,7 @@ public class TimeStorage {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Heat heat : heats) {
             sb.append(heat.toString());
             sb.append("\n");

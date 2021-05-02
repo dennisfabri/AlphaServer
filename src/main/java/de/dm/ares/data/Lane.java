@@ -62,7 +62,7 @@ public class Lane implements Serializable {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(laneindex);
         sb.append(":");
         for (long time : times) {

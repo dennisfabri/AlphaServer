@@ -24,7 +24,7 @@ public class CollectorCmd implements Runnable {
 
     private String                name;
 
-    StringBuffer                  sb = new StringBuffer();
+    StringBuilder                  sb = new StringBuilder();
 
     private CollectorCmd() {
     }
