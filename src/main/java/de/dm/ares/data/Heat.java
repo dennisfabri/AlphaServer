@@ -6,7 +6,7 @@ import java.util.Hashtable;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import de.df.jutils.data.EnumerationIterable;
+import de.df.jutils.data.HashtableUtils;
 
 public class Heat implements Serializable {
 
@@ -63,8 +63,7 @@ public class Heat implements Serializable {
     public int getMaxLane() {
         int max = -1;
 
-        Enumeration<Integer> en = lanes.keys();
-        for (Integer lane : new EnumerationIterable<Integer>(en)) {
+        for (Integer lane : HashtableUtils.getKeyIterable(lanes)) {
             if (max < lane) {
                 max = lane;
             }
