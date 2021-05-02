@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import com.thoughtworks.xstream.XStream;
 
-import de.df.jutils.http.HttpServerThread;
-import de.df.jutils.http.IHttpDataProvider;
-import de.df.jutils.http.Request;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.TimeStorage;
+import de.dm.collector.http.HttpServerThread;
+import de.dm.collector.http.IHttpDataProvider;
+import de.dm.collector.http.Request;
 
 public class AlphaHttpServer {
 
