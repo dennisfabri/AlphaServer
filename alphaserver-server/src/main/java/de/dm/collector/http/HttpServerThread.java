@@ -10,14 +10,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.IllegalBlockingModeException;
 
-/*
- * Created on 21.01.2005
- */
-
-/**
- * @author Dennis Mueller
- * @date 21.01.2005
- */
 public class HttpServerThread extends Thread {
 
     private ServerSocket      socket          = null;
