@@ -31,3 +31,4 @@ target/
 /data/*.serial
 /*.ez
 /*.ez.xml
+*.versionsBackup
