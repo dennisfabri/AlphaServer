@@ -319,7 +319,7 @@ public class JCollector extends JFrame {
         }
     }
 
-    public static void readFile(JCollector collector, MessageReader mr) {
+    private static void readFile(JCollector collector, MessageReader mr) {
         while (true) {
             System.out.println("Read");
             mr.getTimeStorage().clear();
@@ -331,10 +331,10 @@ public class JCollector extends JFrame {
             // FileReader.read("Z:\\DM-Mannschaft2\\LSTRSLT.TXT", 1, mr.getTimeStorage());
             // FileReader.read("Z:\\DM-Mannschaft3\\LSTRSLT.TXT", 2, mr.getTimeStorage());
             // FileReader.read("Z:\\DM-Mannschaft4\\LSTRSLT.TXT", 3, mr.getTimeStorage());
-            FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft1.TXT", 0, mr.getTimeStorage());
-            FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft2.TXT", 1, mr.getTimeStorage());
-            FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft3.TXT", 2, mr.getTimeStorage());
-            FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft4.TXT", 3, mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft1.TXT", 0, mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft2.TXT", 1, mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft3.TXT", 2, mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft4.TXT", 3, mr.getTimeStorage());
             collector.writeHeats();
             try {
                 Thread.sleep(60 * 1000);

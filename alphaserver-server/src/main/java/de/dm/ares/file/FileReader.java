@@ -7,12 +7,6 @@ import de.df.jutils.util.StringTools;
 import de.dm.ares.data.*;
 
 public class FileReader {
-    public static String file1 = "C:\\Users\\dennis\\Desktop\\DM\\LSTRSLT.TXT";
-
-    public static void main(String[] args) {
-        read(file1, 1, new TimeStorage());
-    }
-
     public static Heat[] readHeats(String file) {
         return readHeats(new String[] { file });
     }
@@ -21,7 +15,7 @@ public class FileReader {
         TimeStorage ts = new TimeStorage();
         if (files != null) {
             for (String file : files) {
-                read(file, 1, ts);
+                read(file, ts);
             }
         }
         return ts.getHeats();
@@ -92,7 +86,7 @@ public class FileReader {
     // 1 ;0 ;0 ;0 ;0 ;0 ;0 ;57550360 ;" 15:59:10.36" ;" " ;0 ;"" ;"" ;0 ;"" ;"" ;
     // 1 ;0 ;0 ;50 ;7 ;0 ;1 ;33920 ;" 33.92" ;" " ;33920;" 33.92" ;" " ;0 ;"" ;"" ;
 
-    public static void read(String file, int index, TimeStorage ts) {
+    public static void read(String file, TimeStorage ts) {
         // ts.clear();
         // TimeStorage ts = new TimeStorage();
         // ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, time, LaneStatus.OfficialEnd);
@@ -109,8 +103,7 @@ public class FileReader {
         for (int r = 1; r < data.length; r++) {
             Object[] row = data[r];
             String evt = row[0].toString();
-            // String rnd = row[1].toString();
-            String ht = "" + index; // row[2].toString();
+            String ht = row[2].toString();
             String ln = row[4].toString();
             String tm = row[7].toString();
             String btm = row[10].toString();
@@ -129,18 +122,20 @@ public class FileReader {
             }
 
             int event = Integer.parseInt(evt);
-            int heat = Integer.parseInt(ht);
+            int heat = Integer.parseInt(ht) + 1;
 
             if (isNumber(btm) && !btm.equals("0")) {
                 try {
-                    ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, Integer.parseInt(btm), LaneStatus.RaceTimes);
+                    ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, Integer.parseInt(btm),
+                            LaneStatus.RaceTimes);
                 } catch (NumberFormatException nfe) {
                     System.err.println("Backuptime in unknown format: " + btm);
                     // Nothing to do
                 }
             }
             if (isNumber(tm)) {
-                ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, Integer.parseInt(tm), LaneStatus.RaceTimes);
+                ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, Integer.parseInt(tm),
+                        LaneStatus.RaceTimes);
             }
         }
     }
