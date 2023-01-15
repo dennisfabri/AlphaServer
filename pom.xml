@@ -14,7 +14,7 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<junit.version>5.9.1</junit.version>
+		<junit.version>5.9.2</junit.version>
 	</properties>
 	<modules>
 		<module>alphaserver-api</module>
@@ -95,7 +95,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
