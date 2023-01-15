@@ -13,11 +13,11 @@ import org.apache.commons.lang3.SystemUtils;
 
 public class Collector {
 
-    private String                name;
-    private ByteArrayOutputStream data    = new ByteArrayOutputStream();
-    private long                  time    = 0;
-    private ZipOutputStream       zip     = null;
-    private long                  ziptime = 0;
+    private String name;
+    private ByteArrayOutputStream data = new ByteArrayOutputStream();
+    private long time;
+    private ZipOutputStream zip;
+    private long ziptime;
 
     public Collector(String name) {
         this.name = name == null ? "null" : name.trim().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
@@ -28,7 +28,8 @@ public class Collector {
         if (curr != time) {
             try {
                 String userhome = SystemUtils.getUserHome().getCanonicalPath();
-                new File(Paths.get(userhome, ".JAuswertungHome", "AlphaServer", "Data").toFile().getAbsolutePath()).mkdirs();
+                new File(Paths.get(userhome, ".JAuswertungHome", "AlphaServer", "Data").toFile().getAbsolutePath())
+                        .mkdirs();
 
                 write();
             } catch (IOException io) {
@@ -42,7 +43,7 @@ public class Collector {
     public String toTime(long curr) {
         curr = curr % (60 * 60 * 24);
         int h = (int) (curr / (60 * 60));
-        int m = (int) ((curr / (60)) % 60);
+        int m = (int) ((curr / 60) % 60);
         int s = (int) (curr % 60);
         return "" + (h < 10 ? "0" : "") + h + "-" + (m < 10 ? "0" : "") + m + "-" + (s < 10 ? "0" : "") + s;
     }

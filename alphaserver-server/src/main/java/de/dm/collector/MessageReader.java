@@ -13,10 +13,10 @@ import de.dm.ares.data.event.HeatListener;
 
 public class MessageReader {
 
-    private TimeStorage           times  = new TimeStorage();
+    private TimeStorage times = new TimeStorage();
 
-    private ByteArrayOutputStream bos    = new ByteArrayOutputStream();
-    private Message1Format        finish = null;
+    private ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    private Message1Format finish;
 
     public static void main(String[] args) throws IOException {
         FileInputStream fis = new FileInputStream("dm2015-dat.dat");
@@ -46,7 +46,7 @@ public class MessageReader {
         times.addHeatListener(hl);
     }
 
-    private boolean active = false;
+    private boolean active;
 
     public void push(int data) {
         if (data < 0) {
@@ -71,7 +71,7 @@ public class MessageReader {
     public static Message1Format process1stMessage(byte[] data) {
         System.out.println("### 1st ################");
         boolean invalid = false;
-        
+
         LaneStatus status;
         System.out.print("Status: ");
         switch (data[3]) {
@@ -220,11 +220,11 @@ public class MessageReader {
         System.out.print(", ");
         System.out.print("Place: " + place);
         System.out.println();
-        
+
         if (invalid) {
             return null;
         }
-        
+
         return new Message1Format(status, timetype, index, toInt(laps), toInt(event), toInt(heat), toInt(place));
     }
 
@@ -263,7 +263,8 @@ public class MessageReader {
             result += Math.round(sek * 1000);
         }
 
-        // System.err.println(t + " -> " + result + " = " + StringTools.zeitString(result / 10));
+        // System.err.println(t + " -> " + result + " = " +
+        // StringTools.zeitString(result / 10));
         // System.err.println(m + " : " + rest + " -> " + min + ":" + sek);
 
         return result;

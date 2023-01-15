@@ -1,22 +1,22 @@
 package de.dm.ares.data;
 
 import java.io.Serializable;
-import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 public class Heat implements Serializable {
 
-	private static final long serialVersionUID = 4925782095479969005L;
-	
-	private final Hashtable<Integer, Lane> lanes;
+    private static final long serialVersionUID = 4925782095479969005L;
+
+    private final Map<Integer, Lane> lanes;
     @XStreamAsAttribute
-    private final int                      event;
+    private final int event;
     @XStreamAsAttribute
-    private final int                      heat;
+    private final int heat;
     @XStreamAsAttribute
-    private final String                   id;
+    private final String id;
 
     public Heat(String id, int event, int heatname) {
         lanes = new Hashtable<>();
@@ -69,9 +69,7 @@ public class Heat implements Serializable {
                 return null;
             }
             long[][] result = new long[max + 1][0];
-            Enumeration<Integer> en = lanes.keys();
-            while (en.hasMoreElements()) {
-                int key = en.nextElement();
+            for (Integer key : lanes.keySet()) {
                 Lane lane = lanes.get(key);
                 result[key] = lane.getTimes();
             }
@@ -114,19 +112,16 @@ public class Heat implements Serializable {
         return sb.toString();
     }
 
-	public boolean fits(String heatname) {
-		if (heatname.equals("" + getEvent())) {
-			return true;
-		}
-		if (heatname.equals("" + getHeat())) {
-			return true;
-		}
-		while (heatname.startsWith("0")) {
-			heatname = heatname.substring(1);
-		}
-		if (heatname.equals("" + getEvent() + "/" + getHeat())) {
-			return true;
-		}
-		return false;
-	}
+    public boolean fits(String heatname) {
+        if (heatname.equals("" + getEvent())) {
+            return true;
+        }
+        if (heatname.equals("" + getHeat())) {
+            return true;
+        }
+        while (heatname.startsWith("0")) {
+            heatname = heatname.substring(1);
+        }
+        return heatname.equals("" + getEvent() + "/" + getHeat());
+    }
 }

@@ -12,7 +12,7 @@ import de.dm.ares.data.Heat;
 import de.dm.ares.data.Lane;
 import de.dm.ares.data.LaneStatus;
 
-public class XStreamUtil {
+public final class XStreamUtil {
 
     public static XStream getXStream() {
         XStream x = createXStream();
@@ -51,5 +51,8 @@ public class XStreamUtil {
         xstream.allowTypeHierarchy(Collection.class);
         // allow any type from the same package
         xstream.allowTypes(new Class[] { Heat.class, Lane.class, LaneStatus.class });
+    }
+
+    private XStreamUtil() {
     }
 }

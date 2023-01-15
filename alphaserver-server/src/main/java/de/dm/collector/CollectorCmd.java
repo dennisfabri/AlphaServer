@@ -1,12 +1,14 @@
 package de.dm.collector;
 
-import gnu.io.PortInUseException;
-import gnu.io.UnsupportedCommOperationException;
-
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TooManyListenersException;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -14,18 +16,24 @@ import de.df.jutils.util.StringTools;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.event.HeatListener;
 import de.dm.ares.data.util.XStreamUtil;
-import de.dm.comm.*;
+import de.dm.comm.CommFactory;
+import de.dm.comm.CommunicationMode;
+import de.dm.comm.DataListener;
+import de.dm.comm.NRJavaSerialPortReader;
+import de.dm.comm.PortReader;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 
-public class CollectorCmd implements Runnable {
+public final class CollectorCmd implements Runnable {
 
     private CollectorDataListener dl1;
 
-    private AlphaHttpServer       http;
-    MessageReader                 mr;
+    private AlphaHttpServer http;
+    MessageReader mr;
 
-    private String                name;
+    private String name;
 
-    StringBuilder                  sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
 
     private CollectorCmd() {
     }
@@ -79,10 +87,10 @@ public class CollectorCmd implements Runnable {
 
     private final class CollectorDataListener implements DataListener {
 
-        private final PortReader  in;
-        private final Collector    coll;
-        private long               last  = 0;
-        private int                count = 0;
+        private final PortReader in;
+        private final Collector coll;
+        private long last;
+        private int count;
         private final OutputStream os;
 
         public CollectorDataListener(PortReader p, OutputStream o, String name) throws IOException {
@@ -126,7 +134,7 @@ public class CollectorCmd implements Runnable {
         public String toTime(long curr) {
             curr = curr % (60 * 60 * 24);
             int h = (int) (curr / (60 * 60));
-            int m = (int) ((curr / (60)) % 60);
+            int m = (int) ((curr / 60) % 60);
             int s = (int) (curr % 60);
             return "" + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
         }

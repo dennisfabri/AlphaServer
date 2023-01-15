@@ -1,9 +1,5 @@
 package de.dm.collector;
 
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +8,12 @@ import java.util.Random;
 import java.util.TooManyListenersException;
 
 import de.df.jutils.gui.util.DesignInit;
-import de.dm.comm.*;
+import de.dm.comm.CommunicationMode;
+import de.dm.comm.NRJavaSerialPortReader;
+import de.dm.comm.PortReader;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
 
 public class DataSender {
 
@@ -39,8 +40,8 @@ public class DataSender {
     }
 
     public static class Sender implements Runnable {
-        private String     port;
-        private int        index;
+        private String port;
+        private int index;
         private PortReader pr;
         private SerialPort sp;
 

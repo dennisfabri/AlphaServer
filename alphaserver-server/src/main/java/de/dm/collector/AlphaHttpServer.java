@@ -9,23 +9,17 @@ import de.dm.ares.data.Heat;
 import de.dm.ares.data.TimeStorage;
 import de.dm.ares.data.util.XStreamUtil;
 import de.dm.collector.http.HttpServerThread;
-import de.dm.collector.http.IHttpDataProvider;
 import de.dm.collector.http.Request;
 
 public class AlphaHttpServer {
 
     private HttpServerThread server;
-    private TimeStorage      times;
+    private TimeStorage times;
 
     public AlphaHttpServer(TimeStorage t) {
         times = t;
         try {
-            server = new HttpServerThread(1999, new IHttpDataProvider() {
-                @Override
-                public byte[] sendData(Request name) throws IOException {
-                    return getData(name);
-                }
-            });
+            server = new HttpServerThread(1999, this::getData);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             server = null;

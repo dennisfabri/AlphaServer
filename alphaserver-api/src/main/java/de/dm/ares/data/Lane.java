@@ -10,14 +10,14 @@ import de.df.jutils.util.StringTools;
 public class Lane implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -7389645818914972121L;
+     * 
+     */
+    private static final long serialVersionUID = -7389645818914972121L;
 
     @XStreamAsAttribute
-	private final int    laneindex;
+    private final int laneindex;
 
-    private long[]       times = new long[0];
+    private long[] times = new long[0];
     private LaneStatus[] stati = new LaneStatus[0];
 
     public Lane(int index) {

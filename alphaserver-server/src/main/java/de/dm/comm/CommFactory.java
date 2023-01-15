@@ -1,16 +1,16 @@
 package de.dm.comm;
 
-import gnu.io.CommPort;
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.TooManyListenersException;
+
+import gnu.io.CommPort;
+import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
 
 public final class CommFactory {
 
@@ -90,7 +90,7 @@ public final class CommFactory {
 
         Enumeration<?> portList = CommPortIdentifier.getPortIdentifiers();
 
-        LinkedList<String> ports = new LinkedList<String>();
+        LinkedList<String> ports = new LinkedList<>();
         CommPortIdentifier portId;
         while (portList.hasMoreElements()) {
             portId = (CommPortIdentifier) portList.nextElement();

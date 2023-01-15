@@ -2,8 +2,6 @@ package de.dm.collector.http;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
@@ -12,10 +10,10 @@ import java.nio.channels.IllegalBlockingModeException;
 
 public class HttpServerThread extends Thread {
 
-    private ServerSocket      socket          = null;
-    private boolean           stopped         = false;
-    private IHttpDataProvider source          = null;
-    private int               connectionCount = 64;
+    private ServerSocket socket;
+    private boolean stopped;
+    private IHttpDataProvider source;
+    private int connectionCount = 64;
 
     public HttpServerThread(int port, IHttpDataProvider s) throws IOException {
         if (port < 0 || port > 65535) {
@@ -39,10 +37,6 @@ public class HttpServerThread extends Thread {
             ps.println("stop");
             ps.close();
             connection.getInputStream().close();
-        } catch (MalformedURLException e) {
-            // Nothing to do
-        } catch (ProtocolException pe) {
-            // Nothing to do
         } catch (IOException e) {
             // Nothing to do
         }
@@ -67,9 +61,7 @@ public class HttpServerThread extends Thread {
                 if (!stopped) {
                     new HttpRequestThread(s, source).start();
                 }
-            } catch (IOException e) {
-                // Nothing to do
-            } catch (IllegalBlockingModeException e) {
+            } catch (IOException | IllegalBlockingModeException e) {
                 // Nothing to do
             }
         }

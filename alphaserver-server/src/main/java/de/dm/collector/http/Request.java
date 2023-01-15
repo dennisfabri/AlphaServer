@@ -2,30 +2,31 @@ package de.dm.collector.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 public class Request {
 
-    private final String                    filename;
-    private final Hashtable<String, String> attributes;
+    private final String filename;
+    private final Map<String, String> attributes;
 
-    @SuppressWarnings("deprecation")
     public Request(String request) {
         try {
             request = URLDecoder.decode(request, "ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
             // try best guess
-            request = URLDecoder.decode(request);
+            request = URLDecoder.decode(request, StandardCharsets.UTF_8);
         }
 
         StringTokenizer st = new StringTokenizer(request, "?");
 
         filename = st.nextToken();
-        attributes = new Hashtable<String, String>();
+        attributes = new Hashtable<>();
 
         if (st.hasMoreTokens()) {
             String attribs = st.nextToken();
@@ -51,12 +52,8 @@ public class Request {
         sb.append(getFilename());
         sb.append("?");
 
-        LinkedList<String> keys = new LinkedList<String>();
-        Enumeration<String> e = attributes.keys();
-        if (e.hasMoreElements()) {
-            for (String key = e.nextElement(); e.hasMoreElements(); key = e.nextElement()) {
-                keys.add(key);
-            }
+        if (!attributes.isEmpty()) {
+            List<String> keys = attributes.keySet().stream().sorted().collect(Collectors.toList());
             Collections.sort(keys);
             boolean first = true;
             for (String key : keys) {
@@ -79,7 +76,7 @@ public class Request {
         return filename;
     }
 
-    public Hashtable<String, String> getAttributes() {
+    public Map<String, String> getAttributes() {
         return attributes;
     }
 }

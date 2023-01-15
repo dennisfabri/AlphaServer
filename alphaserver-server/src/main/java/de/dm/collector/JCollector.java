@@ -1,8 +1,6 @@
 package de.dm.collector;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -13,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TooManyListenersException;
 
 import javax.swing.JButton;
@@ -40,7 +39,6 @@ import de.df.jutils.util.StringTools;
 import de.dm.ares.data.Heat;
 import de.dm.ares.data.event.HeatListener;
 import de.dm.ares.data.util.XStreamUtil;
-import de.dm.ares.file.FileReader;
 import de.dm.comm.CommunicationMode;
 import de.dm.comm.DataListener;
 import de.dm.comm.NRJavaSerialPortReader;
@@ -48,7 +46,7 @@ import de.dm.comm.PortReader;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 
-public class JCollector extends JFrame {
+public final class JCollector extends JFrame {
 
     /**
      * 
@@ -88,22 +86,16 @@ public class JCollector extends JFrame {
         setLayout(layout);
 
         JButton close = new JButton("Close");
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                close();
-            }
+        close.addActionListener(e -> {
+            close();
         });
 
-        mode = new JComboBox<String>(new String[] { "ARES21", "Quantum" });
+        mode = new JComboBox<>(new String[] { "ARES21", "Quantum" });
         mode.setSelectedIndex(0);
 
         connect = new JButton("Connect");
-        connect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                connect();
-            }
+        connect.addActionListener(e -> {
+            connect();
         });
 
         log.setAutoscrolls(true);
@@ -224,9 +216,9 @@ public class JCollector extends JFrame {
         // private final FileOutputStream fos;
         private final Collector coll;
         private final JLabel time;
-        private long last = 0;
+        private long last;
         private final JLabel counter;
-        private int count = 0;
+        private int count;
         private final OutputStream os;
 
         public CollectorDataListener(PortReader p, JLabel i, JLabel time, JLabel c, OutputStream o, String name)
@@ -273,7 +265,7 @@ public class JCollector extends JFrame {
         public String toTime(long curr) {
             curr = curr % (60 * 60 * 24);
             int h = (int) (curr / (60 * 60));
-            int m = (int) ((curr / (60)) % 60);
+            int m = (int) ((curr / 60) % 60);
             int s = (int) (curr % 60);
             return "" + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
         }
@@ -331,10 +323,14 @@ public class JCollector extends JFrame {
             // FileReader.read("Z:\\DM-Mannschaft2\\LSTRSLT.TXT", 1, mr.getTimeStorage());
             // FileReader.read("Z:\\DM-Mannschaft3\\LSTRSLT.TXT", 2, mr.getTimeStorage());
             // FileReader.read("Z:\\DM-Mannschaft4\\LSTRSLT.TXT", 3, mr.getTimeStorage());
-            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft1.TXT", 0, mr.getTimeStorage());
-            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft2.TXT", 1, mr.getTimeStorage());
-            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft3.TXT", 2, mr.getTimeStorage());
-            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft4.TXT", 3, mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft1.TXT", 0,
+            // mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft2.TXT", 1,
+            // mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft3.TXT", 2,
+            // mr.getTimeStorage());
+            // FileReader.read("..\\data\\LSTRSLT-DM2016Mannschaft4.TXT", 3,
+            // mr.getTimeStorage());
             collector.writeHeats();
             try {
                 Thread.sleep(60 * 1000);
@@ -379,7 +375,7 @@ public class JCollector extends JFrame {
 
                 String userhome = org.apache.commons.lang3.SystemUtils.getUserHome().getCanonicalPath();
 
-                ArrayList<String> pathparts = new ArrayList<>();
+                List<String> pathparts = new ArrayList<>();
                 pathparts.add(".JAuswertungHome");
                 pathparts.add("AlphaServer");
 

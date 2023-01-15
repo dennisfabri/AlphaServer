@@ -1,20 +1,21 @@
 package de.dm.comm;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Enumeration;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Enumeration;
-
 public class PortWriter {
 
-    private SerialPort   serialPort;
+    private SerialPort serialPort;
     private OutputStream outputStream;
 
-    public PortWriter(String port, CommunicationMode mode) throws IOException, PortInUseException, UnsupportedCommOperationException {
+    public PortWriter(String port, CommunicationMode mode)
+            throws IOException, PortInUseException, UnsupportedCommOperationException {
         Enumeration<?> portList = CommPortIdentifier.getPortIdentifiers();
         CommPortIdentifier portId = null;
         while (portList.hasMoreElements()) {
@@ -34,13 +35,10 @@ public class PortWriter {
 
         serialPort = (SerialPort) portId.open("PortWriter", 2000);
         outputStream = serialPort.getOutputStream();
-        switch (mode) {
-        case ARES21:
+        if (mode == CommunicationMode.ARES21) {
             serialPort.setSerialPortParams(9600, SerialPort.DATABITS_7, SerialPort.STOPBITS_1, SerialPort.PARITY_EVEN);
-            break;
-        case Quantum:
+        } else if (mode == CommunicationMode.Quantum) {
             serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-            break;
         }
         serialPort.notifyOnOutputEmpty(true);
 

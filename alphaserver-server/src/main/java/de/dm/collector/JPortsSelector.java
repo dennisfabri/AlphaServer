@@ -1,27 +1,32 @@
 package de.dm.collector;
 
-import gnu.io.*;
-
-import java.awt.event.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.TooManyListenersException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-import com.jgoodies.forms.layout.*;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
-import de.df.jutils.gui.util.*;
+import de.df.jutils.gui.util.EDTUtils;
+import de.df.jutils.gui.util.WindowUtils;
 import de.dm.comm.CommFactory;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 
-public class JPortsSelector extends JFrame {
+public final class JPortsSelector extends JFrame {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -273137907841131901L;
-	JComboBox<String> port1;
+     * 
+     */
+    private static final long serialVersionUID = -273137907841131901L;
+    JComboBox<String> port1;
     JComboBox<String> port2;
-    JButton   ok;
+    JButton ok;
 
     private JPortsSelector(JFrame parent) throws TooManyListenersException,
             IOException, PortInUseException, UnsupportedCommOperationException {
@@ -31,26 +36,20 @@ public class JPortsSelector extends JFrame {
         String[] ports = new String[portsx.length + 1];
         ports[0] = "";
         System.arraycopy(portsx, 0, ports, 1, portsx.length);
-        port1 = new JComboBox<String>(ports);
-        port2 = new JComboBox<String>(ports);
+        port1 = new JComboBox<>(ports);
+        port2 = new JComboBox<>(ports);
 
-        ActionListener al = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ok.setEnabled((port1.getSelectedIndex() != port2
-                        .getSelectedIndex())
-                        && (port1.getSelectedIndex() > 0));
-            }
+        ActionListener al = e -> {
+            ok.setEnabled((port1.getSelectedIndex() != port2
+                    .getSelectedIndex())
+                    && (port1.getSelectedIndex() > 0));
         };
         port1.addActionListener(al);
         port2.addActionListener(al);
 
         ok = new JButton("Ok");
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
+        ok.addActionListener(e -> {
+            setVisible(false);
         });
         ok.setEnabled(false);
 

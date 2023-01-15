@@ -1,12 +1,18 @@
 package de.dm.ares.file;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import de.df.jutils.io.FileUtils;
 import de.df.jutils.util.StringTools;
-import de.dm.ares.data.*;
+import de.dm.ares.data.Heat;
+import de.dm.ares.data.Index;
+import de.dm.ares.data.LaneStatus;
+import de.dm.ares.data.TimeStorage;
+import de.dm.ares.data.TimeType;
 
-public class FileReader {
+public final class FileReader {
     public static Heat[] readHeats(String file) {
         return readHeats(new String[] { file });
     }
@@ -82,14 +88,16 @@ public class FileReader {
         return SEPARATORS[0];
     }
 
-    // event;round;heat;lap;lane;idStatus;rank;time ;result ;mod ;btime;bresult; bmod;dtime;dresult;dmod
+    // event;round;heat;lap;lane;idStatus;rank;time ;result ;mod ;btime;bresult;
+    // bmod;dtime;dresult;dmod
     // 1 ;0 ;0 ;0 ;0 ;0 ;0 ;57550360 ;" 15:59:10.36" ;" " ;0 ;"" ;"" ;0 ;"" ;"" ;
     // 1 ;0 ;0 ;50 ;7 ;0 ;1 ;33920 ;" 33.92" ;" " ;33920;" 33.92" ;" " ;0 ;"" ;"" ;
 
     public static void read(String file, TimeStorage ts) {
         // ts.clear();
         // TimeStorage ts = new TimeStorage();
-        // ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, time, LaneStatus.OfficialEnd);
+        // ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, time,
+        // LaneStatus.OfficialEnd);
 
         Object[][] data = null;
         try {
@@ -124,7 +132,7 @@ public class FileReader {
             int event = Integer.parseInt(evt);
             int heat = Integer.parseInt(ht) + 1;
 
-            if (isNumber(btm) && !btm.equals("0")) {
+            if (isNumber(btm) && !"0".equals(btm)) {
                 try {
                     ts.store(Index.TimeInserted, TimeType.Finish, event, heat, lane, Integer.parseInt(btm),
                             LaneStatus.RaceTimes);
@@ -147,5 +155,8 @@ public class FileReader {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    private FileReader() {
     }
 }

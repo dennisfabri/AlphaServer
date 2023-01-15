@@ -8,10 +8,10 @@ public class TimeStorage {
 
     private final LinkedList<Heat> heats;
     private Heat current;
-    private transient LinkedList<HeatListener> listeners = new LinkedList<HeatListener>();
+    private transient LinkedList<HeatListener> listeners = new LinkedList<>();
 
     public TimeStorage() {
-        heats = new LinkedList<Heat>();
+        heats = new LinkedList<>();
         current = null;
     }
 

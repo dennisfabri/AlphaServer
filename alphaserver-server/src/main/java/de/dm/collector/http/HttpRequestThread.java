@@ -16,10 +16,10 @@ import java.util.StringTokenizer;
 
 class HttpRequestThread extends Thread {
 
-    private final byte[]      EMPTY  = new byte[0];
+    private final byte[] empty = new byte[0];
 
-    private Socket            socket = null;
-    private IHttpDataProvider source = null;
+    private Socket socket;
+    private IHttpDataProvider source;
 
     // Konstruktor
     public HttpRequestThread(Socket s, IHttpDataProvider so) {
@@ -53,7 +53,7 @@ class HttpRequestThread extends Thread {
             if (st.hasMoreTokens()) {
                 version = st.nextToken();
             }
-            if (method.equals("POST")) {
+            if ("POST".equals(method)) {
                 String line = br.readLine();
                 while ((line != null) && (line.trim().length() > 0)) {
                     line = br.readLine();
@@ -74,7 +74,7 @@ class HttpRequestThread extends Thread {
                 // die gefragte Datei lesen
                 byte[] data = source.sendData(new Request(filename));
                 if (data == null) {
-                    data = EMPTY;
+                    data = empty;
                 }
 
                 // geg. Status-Zeile und Header senden
@@ -86,7 +86,7 @@ class HttpRequestThread extends Thread {
                     os.print("Content-type: " + ct + "\r\n\r\n");
                 }
                 // geg. Datei senden
-                if (!method.equals("HEAD")) {
+                if (!"HEAD".equals(method)) {
                     os.write(data);
                     // os.println(new String(data));
                 }
@@ -101,7 +101,8 @@ class HttpRequestThread extends Thread {
                     os.print("Server: BasicHttp/1.2\r\n");
                     os.print("Content-type: text/html\r\n\r\n");
                 }
-                os.print("<HTML><HEAD><TITLE>File Not Found</TITLE></HEAD>" + "<BODY><H1>HTTP Error 404: File Not Found</H1>" + "</BODY></HTML>");
+                os.print("<HTML><HEAD><TITLE>File Not Found</TITLE></HEAD>"
+                        + "<BODY><H1>HTTP Error 404: File Not Found</H1>" + "</BODY></HTML>");
                 socket.close();
             }
         } catch (IOException e) {

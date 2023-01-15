@@ -1,15 +1,14 @@
 package de.dm.ares.data;
 
-
 public class Message1Format {
 
-    private final LaneStatus   status;
+    private final LaneStatus status;
     private final TimeType timetype;
-    private final Index    index;
-    private final int      laps;
-    private final int      event;
-    private final int      heat;
-    private final int      place;
+    private final Index index;
+    private final int laps;
+    private final int event;
+    private final int heat;
+    private final int place;
 
     public Message1Format(LaneStatus s, TimeType t, Index i, int l, int e, int h,
             int p) {

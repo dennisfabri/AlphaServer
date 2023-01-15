@@ -1,18 +1,20 @@
 package de.dm.collector;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import com.jgoodies.forms.layout.*;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 import de.df.jutils.gui.layout.FormLayoutUtils;
 
 public class JMultiLabel extends JPanel {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -7584668506694301078L;
-	private final JLabel[] text;
+     * 
+     */
+    private static final long serialVersionUID = -7584668506694301078L;
+    private final JLabel[] text;
 
     public JMultiLabel(int size) {
         FormLayout layout = new FormLayout(FormLayoutUtils

@@ -18,7 +18,7 @@ import de.dm.ares.data.TimeStorage;
 import de.dm.ares.data.event.HeatListener;
 import de.dm.ares.data.util.XStreamUtil;
 
-public class FileCollectorCmd {
+public final class FileCollectorCmd {
     private AlphaHttpServer http;
     MessageReader mr;
 
@@ -121,7 +121,7 @@ public class FileCollectorCmd {
             }
             TimeStorage ts = mr.getTimeStorage();
             Heat[] heats = ts.getHeats();
-            try (FileOutputStream os = new FileOutputStream(name+".xml");) {
+            try (FileOutputStream os = new FileOutputStream(name + ".xml")) {
                 XStreamUtil.getXStream().toXML(heats, os);
             }
         } catch (IOException e) {

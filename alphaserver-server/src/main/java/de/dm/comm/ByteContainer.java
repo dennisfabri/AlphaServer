@@ -1,15 +1,16 @@
 package de.dm.comm;
+
 import java.io.IOException;
 import java.util.LinkedList;
 
 public class ByteContainer {
 
-    private static final int   SIZE     = 1024;
+    private static final int SIZE = 1024;
 
-    private LinkedList<byte[]> buffer   = new LinkedList<byte[]>();
-    private LinkedList<byte[]> data     = new LinkedList<byte[]>();
-    private int                readpos  = 0;
-    private int                writepos = SIZE;
+    private LinkedList<byte[]> buffer = new LinkedList<>();
+    private LinkedList<byte[]> data = new LinkedList<>();
+    private int readpos;
+    private int writepos = SIZE;
 
     public ByteContainer() {
         // nothing to do
@@ -46,7 +47,7 @@ public class ByteContainer {
     public byte read() throws IOException {
         byte result;
         synchronized (data) {
-            if (data.size() == 0) {
+            if (data.isEmpty()) {
                 throw new IOException("No data available");
             }
             byte[] d = data.getFirst();

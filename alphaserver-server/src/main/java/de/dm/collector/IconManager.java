@@ -7,7 +7,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 
@@ -19,11 +21,11 @@ import de.df.jutils.gui.util.AIconBundle;
  */
 public final class IconManager {
 
-    static ResourceBundle            names;
+    static ResourceBundle names;
 
-    private static AIconBundle       icons;
+    private static AIconBundle icons;
 
-    private static ImageIcon[]       titles;
+    private static ImageIcon[] titles;
     private static LinkedList<Image> iconimages;
 
     static {
@@ -41,7 +43,7 @@ public final class IconManager {
     private static synchronized ImageIcon getIcon(String name, boolean small) {
         try {
             synchronized (icons) {
-                int size = (small ? 16 : 32);
+                int size = small ? 16 : 32;
                 return icons.getIcon(name, size);
             }
         } catch (RuntimeException re) {
@@ -84,7 +86,7 @@ public final class IconManager {
             if (iconx == null) {
                 return null;
             }
-            iconimages = new LinkedList<Image>();
+            iconimages = new LinkedList<>();
             for (ImageIcon icon : iconx) {
                 iconimages.addLast(icon.getImage());
             }
@@ -133,6 +135,9 @@ public final class IconManager {
             }
             String fullname = "/images/" + size + "x" + size + "/" + id;
             return new ImageIcon(IconManager.class.getResource(fullname));
+        }
+
+        private ManagerIconBundle() {
         }
     }
 }
