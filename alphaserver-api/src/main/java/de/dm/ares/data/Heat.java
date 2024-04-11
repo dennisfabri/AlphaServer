@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+import static java.lang.String.format;
+
 public class Heat implements Serializable {
 
     private static final long serialVersionUID = 4925782095479969005L;
@@ -113,6 +115,7 @@ public class Heat implements Serializable {
     }
 
     public boolean fits(String heatname) {
+        heatname = heatname.replace("-", "");
         if (heatname.equals("" + getEvent())) {
             return true;
         }
@@ -122,6 +125,9 @@ public class Heat implements Serializable {
         while (heatname.startsWith("0")) {
             heatname = heatname.substring(1);
         }
-        return heatname.equals("" + getEvent() + "/" + getHeat());
+        if (heatname.equals(getEvent() + "/" + getHeat())) {
+            return true;
+        }
+        return heatname.equals(format("%d%2d", getEvent(), getHeat()));
     }
 }
