@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dennisfabri.alphaserver</groupId>
 	<artifactId>alphaserver</artifactId>
-	<version>16.3.2</version>
+	<version>17.0.0</version>
 	<packaging>pom</packaging>
 	<name>AlphaServer</name>
 	<url>https://github.com/dennisfabri/AlphaServer</url>
