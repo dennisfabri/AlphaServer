@@ -11,12 +11,12 @@
     <url>https://github.com/dennisfabri/AlphaServer</url>
     <properties>
         <project.build.sourceEncoding>Windows-1252</project.build.sourceEncoding>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
-        <junit.version>5.13.4</junit.version>
+        <junit.version>6.0.1</junit.version>
     </properties>
     <modules>
         <module>alphaserver-api</module>
@@ -97,7 +97,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.14.0</version>
+                    <version>3.14.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -110,32 +110,32 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.6.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.3</version>
+                    <version>3.5.4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.4.2</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>3.9.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.7.1</version>
+                    <version>3.8.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.18.0</version>
+                    <version>2.20.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -179,14 +179,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jdeprscan-plugin</artifactId>
-                <version>3.0.0-alpha-1</version>
-                <configuration>
-                    <release>17</release>
-                </configuration>
             </plugin>
         </plugins>
     </build>
