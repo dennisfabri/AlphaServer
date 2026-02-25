@@ -2,17 +2,14 @@ package de.dm.collector.http;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.nio.channels.IllegalBlockingModeException;
 
 public class HttpServerThread extends Thread {
 
-    private ServerSocket socket;
+    private final ServerSocket socket;
     private boolean stopped;
-    private IHttpDataProvider source;
+    private final IHttpDataProvider source;
     private int connectionCount = 64;
 
     public HttpServerThread(int port, IHttpDataProvider s) throws IOException {
@@ -31,13 +28,13 @@ public class HttpServerThread extends Thread {
     public void cancel() {
         stopped = true;
         try {
-            URLConnection connection = new URL("http://127.0.0.1/index.html").openConnection();
+            URLConnection connection = new URI("http://127.0.0.1/index.html").toURL().openConnection();
             connection.connect();
             PrintStream ps = new PrintStream(connection.getOutputStream());
             ps.println("stop");
             ps.close();
             connection.getInputStream().close();
-        } catch (IOException e) {
+        } catch (URISyntaxException | IOException e) {
             // Nothing to do
         }
     }
