@@ -154,7 +154,7 @@ public final class JCollector extends JFrame {
         port1.setBorder(BorderUtils.createLabeledBorder("No Connection"));
 
         // TODO: Implement better version
-        name = FileChooserUtils.saveFile(null, "Datei w‰hlen", new SimpleFileFilter("Elektronische Zeitnahme", "ez"));
+        name = FileChooserUtils.saveFile(null, "Datei w√§hlen", new SimpleFileFilter("Elektronische Zeitnahme", "ez"));
 
         mr = new MessageReader();
         Heat[] heats = readHeats();

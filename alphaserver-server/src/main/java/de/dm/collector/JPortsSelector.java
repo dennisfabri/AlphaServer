@@ -30,7 +30,7 @@ public final class JPortsSelector extends JFrame {
 
     private JPortsSelector(JFrame parent) throws TooManyListenersException,
             IOException, PortInUseException, UnsupportedCommOperationException {
-        super("Ports ausw‰hlen");
+        super("Ports ausw√§hlen");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         String[] portsx = CommFactory.getPorts();
         String[] ports = new String[portsx.length + 1];

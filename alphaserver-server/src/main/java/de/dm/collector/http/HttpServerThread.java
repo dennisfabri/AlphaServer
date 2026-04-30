@@ -3,6 +3,7 @@ package de.dm.collector.http;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.channels.IllegalBlockingModeException;
 
 public class HttpServerThread extends Thread {
@@ -30,7 +31,7 @@ public class HttpServerThread extends Thread {
         try {
             URLConnection connection = new URI("http://127.0.0.1/index.html").toURL().openConnection();
             connection.connect();
-            PrintStream ps = new PrintStream(connection.getOutputStream());
+            PrintStream ps = new PrintStream(connection.getOutputStream(), false, StandardCharsets.UTF_8);
             ps.println("stop");
             ps.close();
             connection.getInputStream().close();

@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -32,8 +33,8 @@ class HttpRequestThread extends Thread {
     @Override
     public void run() {
         try {
-            PrintStream os = new PrintStream(socket.getOutputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintStream os = new PrintStream(socket.getOutputStream(), false, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             // erste Zeile lesen; z.B. "GET /hallo.html HTTP/1.0"
             String get = br.readLine();
             if (get == null) {

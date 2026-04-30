@@ -28,7 +28,7 @@ public final class JPortSelector extends JDialog {
 
     private JPortSelector(JFrame parent) throws TooManyListenersException,
             IOException, PortInUseException, UnsupportedCommOperationException {
-        super(parent, "Port ausw‰hlen", ModalityType.APPLICATION_MODAL);
+        super(parent, "Port ausw√§hlen", ModalityType.APPLICATION_MODAL);
 
         this.setMinimumSize(new Dimension(200, 50));
 
