@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>AlphaServer</title>
+  <rect width="24" height="24" rx="5.5" fill="#1a3fd1"/>
+  <g transform="translate(2.2 2.4) scale(0.8)" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.5 9.5C9.8 13 8.6 18.5 5.75 18.5A4.25 4.5 0 0 1 1.5 14A4.25 4.5 0 0 1 5.75 9.5C8.6 9.5 9.8 15 10.5 18.5"/><path d="M21.6 7.6C20.9 6.3 19.5 5.5 17.75 5.5C15.4 5.5 13.75 6.8 13.75 8.75C13.75 10.9 15.6 11.4 17.9 12C20.2 12.6 22 13.3 22 15.4C22 17.3 20.2 18.5 17.85 18.5C15.9 18.5 14.3 17.7 13.5 16.3"/>
+  </g>
+</svg>
